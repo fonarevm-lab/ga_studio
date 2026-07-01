@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+:root{--bg:#f4f5f7;--bg-card:#fff;--bg-sidebar:#0c1220;--bg-sidebar-hover:rgba(255,255,255,.06);--bg-sidebar-active:rgba(110,198,68,.12);--bg-glass:rgba(255,255,255,.72);--ink:#0f172a;--ink-secondary:#475569;--ink-muted:#94a3b8;--ink-inverse:#f8fafc;--ink-sidebar:rgba(255,255,255,.6);--ink-sidebar-active:#6ec644;--green:#3aab64;--green-soft:rgba(58,171,100,.1);--green-border:rgba(58,171,100,.25);--purple:#7c3aed;--purple-soft:rgba(124,58,237,.08);--amber:#d97706;--amber-soft:rgba(217,119,6,.1);--blue:#2563eb;--blue-soft:rgba(37,99,235,.08);--border:#e2e8f0;--border-strong:#cbd5e1;--shadow-xs:0 1px 2px rgba(0,0,0,.04);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--r:6px;--r-md:10px;--r-lg:14px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-8:32px;--font:'Source Sans 3',system-ui,sans-serif;--mono:'Source Code Pro',ui-monospace,monospace;--sidebar-w:272px;--header-h:60px;--ease:cubic-bezier(.4,0,.2,1)}
+@media(prefers-color-scheme:dark){:root{--bg:#0b0f1a;--bg-card:#141b2d;--bg-glass:rgba(20,27,45,.8);--ink:#e2e8f0;--ink-secondary:#94a3b8;--ink-muted:#64748b;--border:#1e293b;--border-strong:#334155}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;-webkit-font-smoothing:antialiased}body{font-family:var(--font);font-size:14px;line-height:1.55;color:var(--ink);background:var(--bg)}button{font:inherit;color:inherit}a{color:inherit;text-decoration:none}svg{display:block}
+.shell{display:grid;grid-template-columns:var(--sidebar-w) 1fr;grid-template-rows:var(--header-h) 1fr;min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;background:var(--bg-sidebar);display:flex;flex-direction:column;z-index:100;border-right:1px solid rgba(255,255,255,.06)}
+.sidebar-brand{padding:20px 22px;display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(255,255,255,.06)}.sidebar-brand-icon{width:40px;height:40px;border-radius:var(--r-md);background:linear-gradient(135deg,var(--green),#226e3f);display:flex;align-items:center;justify-content:center;flex-shrink:0}.sidebar-brand-text{color:var(--ink-inverse);font-size:17px;font-weight:600}.sidebar-brand-sub{font-size:11px;color:var(--ink-sidebar)}
+.sidebar-nav{flex:1;overflow-y:auto;padding:16px 12px}.nav-group{margin-bottom:24px}.nav-group-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);padding:0 12px;margin-bottom:8px}.nav-link{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:var(--r);color:var(--ink-sidebar);font-size:13.5px;transition:all .15s var(--ease);position:relative;margin-bottom:2px}.nav-link:hover{background:var(--bg-sidebar-hover);color:var(--ink-inverse)}.nav-link.active{background:var(--bg-sidebar-active);color:var(--ink-sidebar-active);font-weight:500}.nav-link.active::before{content:'';position:absolute;left:-12px;top:50%;transform:translateY(-50%);width:3px;height:22px;border-radius:0 3px 3px 0;background:var(--green)}.nav-link svg{width:19px;height:19px;stroke-width:1.8;fill:none;stroke:currentColor;flex-shrink:0}.nav-link .badge{margin-left:auto;font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:9999px;background:var(--green-soft);color:var(--green)}
+.sidebar-profile{padding:16px;border-top:1px solid rgba(255,255,255,.06)}.profile-card{display:flex;align-items:center;gap:12px;padding:12px;border-radius:var(--r-md);background:rgba(58,171,100,.08);border:1px solid rgba(58,171,100,.15)}.profile-avatar{width:38px;height:38px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:linear-gradient(135deg,var(--green),#226e3f)}.profile-avatar svg{width:28px;height:28px}.profile-name{font-size:13px;font-weight:500;color:var(--ink-inverse)}.profile-role{font-size:11px;color:var(--green);font-weight:500;margin-top:1px}
+.header{grid-column:2;height:var(--header-h);background:var(--bg-glass);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 var(--sp-8);position:sticky;top:0;z-index:50}
+.header-title{font-size:16px;font-weight:500;display:flex;align-items:center;gap:var(--sp-3)}.header-title svg{width:18px;height:18px;stroke-width:1.8;fill:none;stroke:var(--green)}
+.main{grid-column:2;padding:var(--sp-8);overflow-y:auto;max-height:calc(100vh - var(--header-h))}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--r-md);font-size:13px;font-weight:500;border:1.5px solid var(--border);background:var(--bg-card);cursor:pointer;transition:all .15s var(--ease);margin-bottom:var(--sp-6);color:var(--ink-secondary)}.back-btn:hover{border-color:var(--green-border);background:var(--green-soft);color:var(--green)}.back-btn svg{width:14px;height:14px;stroke-width:2;fill:none;stroke:currentColor}
+.list-table{width:100%;border-collapse:collapse;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-xs)}.list-table th{text-align:left;padding:12px 16px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-muted);background:var(--bg);border-bottom:1px solid var(--border)}.list-table td{padding:14px 16px;border-bottom:1px solid var(--border);font-size:13px}.list-table tr:last-child td{border-bottom:none}.list-table tr{transition:background .12s}.list-table tr:hover td{background:rgba(58,171,100,.02)}
+.tag{display:inline-flex;padding:3px 8px;border-radius:var(--r);font-size:11px;font-weight:600}.tag.t-green{background:var(--green-soft);color:var(--green)}.tag.t-amber{background:var(--amber-soft);color:var(--amber)}.tag.t-blue{background:var(--blue-soft);color:var(--blue)}.tag.t-purple{background:var(--purple-soft);color:var(--purple)}.tag.t-rose{background:rgba(225,29,72,.08);color:#e11d48}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.page-title{font-size:22px;font-weight:300;letter-spacing:-.5px;margin-bottom:var(--sp-3)}.page-title b{font-weight:500;color:var(--green)}.page-sub{font-size:13px;color:var(--ink-secondary);margin-bottom:var(--sp-6)}
+@media(max-width:1080px){.sidebar{position:fixed;left:0;top:0;transform:translateX(-100%);z-index:200}.main{grid-column:1/-1;padding:var(--sp-5) var(--sp-4)}.header{grid-column:1/-1}}
+  </style>
+  <title>GA Studio — Клиенты</title>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+  <div class="sidebar-brand"><div class="sidebar-brand-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M16 6v4"/><path d="M12 10l4-4 4 4"/><path d="M10 18c0-4 2.5-7 6-10 3.5 3 6 6 6 10a6 6 0 0 1-12 0z"/><circle cx="13" cy="16" r="1" fill="#fff" stroke="none"/><circle cx="19" cy="16" r="1" fill="#fff" stroke="none"/></svg></div><div><div class="sidebar-brand-text">GA Studio</div><div class="sidebar-brand-sub">Premium Beauty</div></div></div>
+  <nav class="sidebar-nav">
+    <div class="nav-group"><div class="nav-group-label">Основное</div>
+      <a href="salon-admin.html" class="nav-link"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Обзор</a>
+      <a href="schedule.html" class="nav-link"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Расписание</a>
+      <a href="clients.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Клиенты</a>
+      <a href="services.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Услуги</a>
+    </div>
+    <div class="nav-group"><div class="nav-group-label">Бизнес</div>
+      <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Мастера</a>
+      <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Склад</a>
+    </div>
+    <div class="nav-group"><div class="nav-group-label">Система</div>
+      <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Настройки</a>
+    </div>
+  </nav>
+  <div class="sidebar-profile"><div class="profile-card"><div class="profile-avatar"><svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M16 6v4"/><path d="M12 10l4-4 4 4"/><path d="M10 18c0-4 2.5-7 6-10 3.5 3 6 6 6 10a6 6 0 0 1-12 0z"/><circle cx="13" cy="16" r="1" fill="#fff" stroke="none"/><circle cx="19" cy="16" r="1" fill="#fff" stroke="none"/></svg></div><div><div class="profile-name">Алина К.</div><div class="profile-role">Мастер</div></div></div></div>
+</aside>
+  <header class="header"><div class="header-title"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Клиенты</div></header>
+  <main class="main">
+    <a href="salon-admin.html" class="back-btn"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Обзор</a>
+    <h1 class="page-title">Клиенты <b>GA Studio</b></h1>
+    <p class="page-sub">Все клиенты салона · <span id="count"></span></p>
+    <table class="list-table">
+      <thead><tr><th>Имя</th><th>Телефон</th><th>Заметки</th><th>Теги</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </main>
+</div>
+<script src="data/clients.js"></script>
+<script src="data/settings.js"></script>
+<script src="data/dataProvider.js"></script>
+<script>
+const clients = DataProvider.getClients();
+document.getElementById('count').textContent = clients.length + ' чел.';
+document.getElementById('tbody').innerHTML = clients.map(c => {
+  const tags = (c.tags || []).map(t => {
+    const cls = t === 'vip' ? 't-purple' : t === 'аллергия' ? 't-rose' : t === 'эко' ? 't-green' : 't-blue';
+    return '<span class="tag ' + cls + '">' + t + '</span>';
+  }).join(' ');
+  const allergyNote = (c.allergies || []).length ? '⚠ ' + c.allergies.join(', ') : '';
+  return '<tr><td><strong>' + c.name + '</strong></td><td class="mono">' + c.phone + '</td><td>' + (allergyNote || c.notes || '—') + '</td><td>' + tags + '</td></tr>';
+}).join('');
+</script>
+</body>
+</html>
