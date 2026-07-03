@@ -21,7 +21,7 @@
 .tag{display:inline-flex;padding:3px 8px;border-radius:var(--r);font-size:11px;font-weight:600}.tag.t-green{background:var(--green-soft);color:var(--green)}.tag.t-amber{background:var(--amber-soft);color:var(--amber)}.tag.t-blue{background:var(--blue-soft);color:var(--blue)}.tag.t-purple{background:var(--purple-soft);color:var(--purple)}.tag.t-rose{background:rgba(225,29,72,.08);color:#e11d48}
 .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .page-title{font-size:22px;font-weight:300;letter-spacing:-.5px;margin-bottom:var(--sp-3)}.page-title b{font-weight:500;color:var(--green)}.page-sub{font-size:13px;color:var(--ink-secondary);margin-bottom:var(--sp-6)}
-@media(max-width:1080px){.sidebar{position:fixed;left:0;top:0;transform:translateX(-100%);z-index:200}.main{grid-column:1/-1;padding:var(--sp-5) var(--sp-4)}.header{grid-column:1/-1}}
+@media(max-width:1080px){.hamburger{display:flex;width:40px;height:40px;border-radius:var(--r);border:1px solid var(--border);background:var(--bg-card);cursor:pointer;align-items:center;justify-content:center;color:var(--ink-secondary)}.sidebar{position:fixed;left:0;top:0;transform:translateX(-100%);z-index:200}.main{grid-column:1/-1;padding:var(--sp-5) var(--sp-4)}.header{grid-column:1/-1}}
   </style>
   <title>GA Studio — Услуги</title>
 </head>
@@ -46,7 +46,7 @@
   </nav>
   <div class="sidebar-profile"><div class="profile-card"><div class="profile-avatar"><svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M16 6v4"/><path d="M12 10l4-4 4 4"/><path d="M10 18c0-4 2.5-7 6-10 3.5 3 6 6 6 10a6 6 0 0 1-12 0z"/><circle cx="13" cy="16" r="1" fill="#fff" stroke="none"/><circle cx="19" cy="16" r="1" fill="#fff" stroke="none"/></svg></div><div><div class="profile-name">Алина К.</div><div class="profile-role">Мастер</div></div></div></div>
 </aside>
-  <header class="header"><div class="header-title"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Услуги</div></header>
+  <header class="header"><div class="header-left"><button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div><div class="header-title"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Услуги</div></header>
   <main class="main">
     <a href="salon-admin.html" class="back-btn"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Обзор</a>
     <h1 class="page-title">Услуги <b>GA Studio</b></h1>
@@ -57,9 +57,12 @@
     </table>
   </main>
 </div>
-<script src="data/services.js"></script>
-<script src="data/settings.js"></script>
-<script src="data/dataProvider.js"></script>
+<script src="data/services.js">document.addEventListener('click',e=>{const s=document.getElementById('sidebar'),b=document.querySelector('hamburger');if(s&&s.classList.contains('open')&&!s.contains(e.target)&&!b.contains(e.target))s.classList.remove('open')});
+</script>
+<script src="data/settings.js">document.addEventListener('click',e=>{const s=document.getElementById('sidebar'),b=document.querySelector('hamburger');if(s&&s.classList.contains('open')&&!s.contains(e.target)&&!b.contains(e.target))s.classList.remove('open')});
+</script>
+<script src="data/dataProvider.js">document.addEventListener('click',e=>{const s=document.getElementById('sidebar'),b=document.querySelector('hamburger');if(s&&s.classList.contains('open')&&!s.contains(e.target)&&!b.contains(e.target))s.classList.remove('open')});
+</script>
 <script>
 const services = DataProvider.getServices();
 document.getElementById('count').textContent = services.length + ' услуг';
@@ -68,6 +71,7 @@ document.getElementById('tbody').innerHTML = services.map(s => {
   const catCls = s.category === 'nails' ? 't-purple' : s.category === 'hair' ? 't-blue' : s.category === 'spa' ? 't-green' : 't-amber';
   return '<tr><td><strong>' + s.name + '</strong></td><td><span class="tag ' + catCls + '">' + cat + '</span></td><td class="mono">' + s.duration + ' мин</td><td class="mono"><strong>₽' + s.price.toLocaleString() + '</strong></td></tr>';
 }).join('');
+document.addEventListener('click',e=>{const s=document.getElementById('sidebar'),b=document.querySelector('hamburger');if(s&&s.classList.contains('open')&&!s.contains(e.target)&&!b.contains(e.target))s.classList.remove('open')});
 </script>
 </body>
 </html>
