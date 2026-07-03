@@ -6,527 +6,108 @@
   <title>GA Studio — Расписание дня</title>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-/* ═══════════════════════════════════════════
-   DESIGN TOKENS (единые с salon-admin)
-   ═══════════════════════════════════════════ */
-:root{
-  --bg:#f4f5f7;--bg-card:#fff;--bg-elevated:#fff;
-  --bg-sidebar:#0c1220;--bg-sidebar-hover:rgba(255,255,255,.06);--bg-sidebar-active:rgba(110,198,68,.12);
-  --bg-glass:rgba(255,255,255,.72);
-  --ink:#0f172a;--ink-secondary:#475569;--ink-muted:#94a3b8;--ink-inverse:#f8fafc;--ink-sidebar:rgba(255,255,255,.6);--ink-sidebar-active:#6ec644;
-  --g50:#f0faf4;--g100:#dcf5e6;--g200:#bbead0;--g300:#8ad9ac;--g400:#54c180;--g500:#3aab64;--g600:#2a8a4f;--g700:#226e3f;--g800:#1e5834;--g900:#1a482c;
-  --green:#3aab64;--green-soft:rgba(58,171,100,.1);--green-border:rgba(58,171,100,.25);
-  --purple:#7c3aed;--purple-soft:rgba(124,58,237,.08);
-  --amber:#d97706;--amber-soft:rgba(217,119,6,.1);
-  --rose:#e11d48;--rose-soft:rgba(225,29,72,.08);
-  --blue:#2563eb;--blue-soft:rgba(37,99,235,.08);
-  --border:#e2e8f0;--border-strong:#cbd5e1;
-  --shadow-xs:0 1px 2px rgba(0,0,0,.04);--shadow-sm:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);--shadow-md:0 4px 12px rgba(0,0,0,.07),0 2px 4px rgba(0,0,0,.04);--shadow-lg:0 12px 40px rgba(0,0,0,.1),0 4px 12px rgba(0,0,0,.05);
-  --r-xs:4px;--r:6px;--r-md:10px;--r-lg:14px;--r-xl:20px;--r-full:9999px;
-  --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-8:32px;--sp-10:40px;
-  --font:'Source Sans 3',system-ui,-apple-system,sans-serif;--mono:'Source Code Pro',ui-monospace,monospace;
-  --sidebar-w:272px;--header-h:60px;--ease:cubic-bezier(.4,0,.2,1);
-}
-@media(prefers-color-scheme:dark){:root{
-  --bg:#0b0f1a;--bg-card:#141b2d;--bg-elevated:#1a2238;--bg-glass:rgba(20,27,45,.8);
-  --ink:#e2e8f0;--ink-secondary:#94a3b8;--ink-muted:#64748b;
-  --border:#1e293b;--border-strong:#334155;
-  --shadow-xs:0 1px 2px rgba(0,0,0,.2);--shadow-sm:0 1px 3px rgba(0,0,0,.3),0 1px 2px rgba(0,0,0,.2);--shadow-md:0 4px 12px rgba(0,0,0,.35),0 2px 4px rgba(0,0,0,.2);--shadow-lg:0 12px 40px rgba(0,0,0,.5),0 4px 12px rgba(0,0,0,.3);
-}}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:16px;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
-body{font-family:var(--font);font-size:14px;line-height:1.55;color:var(--ink);background:var(--bg);overflow-x:hidden}
-button,input{font:inherit;color:inherit}a{color:inherit;text-decoration:none}img,svg{display:block}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:3px}
-::selection{background:var(--green-soft);color:var(--g800)}
-
-/* LAYOUT */
+:root{--bg:#f4f5f7;--bg-card:#fff;--bg-sidebar:#0c1220;--bg-sidebar-hover:rgba(255,255,255,.06);--bg-sidebar-active:rgba(110,198,68,.12);--bg-glass:rgba(255,255,255,.72);--ink:#0f172a;--ink-secondary:#475569;--ink-muted:#94a3b8;--ink-inverse:#f8fafc;--ink-sidebar:rgba(255,255,255,.6);--ink-sidebar-active:#6ec644;--green:#3aab64;--green-soft:rgba(58,171,100,.1);--green-border:rgba(58,171,100,.25);--purple:#7c3aed;--purple-soft:rgba(124,58,237,.08);--amber:#d97706;--amber-soft:rgba(217,119,6,.1);--rose:#e11d48;--rose-soft:rgba(225,29,72,.08);--blue:#2563eb;--blue-soft:rgba(37,99,235,.08);--gray:#64748b;--gray-soft:rgba(100,116,139,.08);--border:#e2e8f0;--border-strong:#cbd5e1;--shadow-xs:0 1px 2px rgba(0,0,0,.04);--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.07);--shadow-lg:0 12px 40px rgba(0,0,0,.1);--r-xs:4px;--r:6px;--r-md:10px;--r-lg:14px;--r-full:9999px;--sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-8:32px;--font:'Source Sans 3',system-ui,sans-serif;--mono:'Source Code Pro',ui-monospace,monospace;--sidebar-w:272px;--header-h:60px;--ease:cubic-bezier(.4,0,.2,1)}
+@media(prefers-color-scheme:dark){:root{--bg:#0b0f1a;--bg-card:#141b2d;--bg-glass:rgba(20,27,45,.8);--ink:#e2e8f0;--ink-secondary:#94a3b8;--ink-muted:#64748b;--border:#1e293b;--border-strong:#334155}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;-webkit-font-smoothing:antialiased}body{font-family:var(--font);font-size:14px;line-height:1.55;color:var(--ink);background:var(--bg)}button{font:inherit;color:inherit}a{color:inherit;text-decoration:none}svg{display:block}
 .shell{display:grid;grid-template-columns:var(--sidebar-w) 1fr;grid-template-rows:var(--header-h) 1fr;min-height:100vh}
-
-/* SIDEBAR (идентична salon-admin) */
-.sidebar{position:sticky;top:0;height:100vh;background:var(--bg-sidebar);display:flex;flex-direction:column;z-index:100;border-right:1px solid rgba(255,255,255,.06);transition:transform .25s var(--ease)}
-.sidebar-brand{padding:20px 22px;display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(255,255,255,.06)}
-.sidebar-brand-icon{width:40px;height:40px;border-radius:var(--r-md);background:linear-gradient(135deg,var(--green),var(--g700));display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 20px rgba(58,171,100,.3)}
-.sidebar-brand-text{color:var(--ink-inverse);font-size:17px;font-weight:600;letter-spacing:-.3px}
-.sidebar-brand-sub{font-size:11px;color:var(--ink-sidebar);font-weight:400;margin-top:1px}
-.sidebar-nav{flex:1;overflow-y:auto;padding:16px 12px}
-.nav-group{margin-bottom:24px}
-.nav-group-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);padding:0 12px;margin-bottom:8px}
-.nav-link{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:var(--r);color:var(--ink-sidebar);font-size:13.5px;font-weight:400;transition:all .15s var(--ease);position:relative;margin-bottom:2px}
-.nav-link:hover{background:var(--bg-sidebar-hover);color:var(--ink-inverse)}
-.nav-link.active{background:var(--bg-sidebar-active);color:var(--ink-sidebar-active);font-weight:500}
-.nav-link.active::before{content:'';position:absolute;left:-12px;top:50%;transform:translateY(-50%);width:3px;height:22px;border-radius:0 3px 3px 0;background:var(--green)}
-.nav-link svg{width:19px;height:19px;stroke-width:1.8;fill:none;stroke:currentColor;flex-shrink:0}
-.nav-link .badge{margin-left:auto;font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:var(--r-full);background:var(--green-soft);color:var(--green)}
-.sidebar-profile{padding:16px;border-top:1px solid rgba(255,255,255,.06)}
-.profile-card{display:flex;align-items:center;gap:12px;padding:12px;border-radius:var(--r-md);background:rgba(58,171,100,.08);border:1px solid rgba(58,171,100,.15)}
-.profile-avatar{width:38px;height:38px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;background:linear-gradient(135deg,var(--green),var(--g700))}
-.profile-avatar svg{width:28px;height:28px}
-.profile-name{font-size:13px;font-weight:500;color:var(--ink-inverse)}
-.profile-role{font-size:11px;color:var(--green);font-weight:500;margin-top:1px}
-
-/* HEADER */
-.header{grid-column:2;height:var(--header-h);background:var(--bg-glass);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 var(--sp-8);position:sticky;top:0;z-index:50}
-.header-left{display:flex;align-items:center;gap:var(--sp-4)}
-.hamburger{display:none;width:40px;height:40px;border-radius:var(--r);border:1px solid var(--border);background:var(--bg-card);cursor:pointer;align-items:center;justify-content:center;color:var(--ink-secondary)}
-.hamburger:hover{background:var(--green-soft);color:var(--green);border-color:var(--green-border)}
-.header-title{font-size:16px;font-weight:500;color:var(--ink);display:flex;align-items:center;gap:var(--sp-2)}
-.header-title svg{width:18px;height:18px;stroke-width:1.8;fill:none;stroke:var(--green)}
-.header-right{display:flex;align-items:center;gap:var(--sp-3)}
-.hdr-btn{width:40px;height:40px;border-radius:var(--r);border:1px solid var(--border);background:var(--bg-card);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink-secondary);transition:all .15s var(--ease);position:relative}
-.hdr-btn:hover{background:var(--green-soft);color:var(--green);border-color:var(--green-border)}
-.hdr-btn svg{width:19px;height:19px;stroke-width:1.8;fill:none;stroke:currentColor}
-.hdr-btn .pip{position:absolute;top:8px;right:8px;width:7px;height:7px;background:var(--rose);border-radius:50%;border:2px solid var(--bg-card)}
-.hdr-divider{width:1px;height:28px;background:var(--border);margin:0 var(--sp-1)}
-
-/* MAIN */
-.main{grid-column:2;padding:var(--sp-6) var(--sp-8);overflow-y:auto;max-height:calc(100vh - var(--header-h))}
-
-/* ═══════════════════════════════════════════
-   DAY HEADER
-   ═══════════════════════════════════════════ */
-.day-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-6);flex-wrap:wrap;gap:var(--sp-3)}
-.day-info h1{font-size:22px;font-weight:400;letter-spacing:-.5px;color:var(--ink)}
-.day-info h1 b{font-weight:600;color:var(--green)}
-.day-sub{font-size:13px;color:var(--ink-secondary);margin-top:2px;display:flex;align-items:center;gap:var(--sp-3)}
-.day-sub .dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.day-legend{display:flex;gap:var(--sp-3);flex-wrap:wrap}
-.legend-item{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink-muted);font-weight:500}
-.legend-dot{width:10px;height:10px;border-radius:var(--r-xs)}
-.legend-dot.l-done{background:var(--purple-soft);border:1.5px solid var(--purple)}
-.legend-dot.l-current{background:var(--green);box-shadow:0 0 8px rgba(58,171,100,.4)}
-.legend-dot.l-waiting{background:var(--border);border:1.5px solid var(--border-strong)}
-.legend-dot.l-break{background:repeating-linear-gradient(45deg,var(--border),var(--border) 2px,transparent 2px,transparent 4px)}
-
-/* ═══════════════════════════════════════════
-   TIMELINE
-   ═══════════════════════════════════════════ */
-.timeline{position:relative;padding-left:72px}
-/* Vertical line */
-.timeline::before{content:'';position:absolute;left:35px;top:0;bottom:0;width:2px;background:var(--border);border-radius:1px}
-
-/* Hour marker */
-.tl-hour{position:relative;height:64px;display:flex;align-items:flex-start;padding-top:2px}
-.tl-hour::before{
-  content:attr(data-time);position:absolute;left:-72px;top:2px;
-  font-family:var(--mono);font-size:12px;font-weight:600;color:var(--ink-muted);
-  width:56px;text-align:right;
-}
-.tl-hour::after{
-  content:'';position:absolute;left:-39px;top:6px;
-  width:10px;height:10px;border-radius:50%;background:var(--bg);border:2px solid var(--border-strong);
-}
-
-/* Appointment block */
-.tl-appt{
-  position:relative;margin-bottom:var(--sp-2);
-  border-radius:var(--r-md);border:1px solid var(--border);
-  padding:var(--sp-3) var(--sp-4);
-  background:var(--bg-card);
-  cursor:pointer;transition:all .2s var(--ease);
-  display:grid;grid-template-columns:1fr auto;gap:var(--sp-3);align-items:center;
-}
-.tl-appt:hover{border-color:var(--border-strong);box-shadow:var(--shadow-sm);transform:translateX(3px)}
-/* Left accent bar */
-.tl-appt::before{content:'';position:absolute;left:-39px;top:50%;transform:translateY(-50%);width:10px;height:10px;border-radius:50%;border:2px solid var(--border-strong);background:var(--bg);z-index:1}
-
-/* Status: done */
-.tl-appt.done{opacity:.5;border-style:dashed}
-.tl-appt.done::before{background:var(--purple);border-color:var(--purple)}
-.tl-appt.done .tl-a-time{text-decoration:line-through;color:var(--ink-muted)}
-
-/* Status: current */
-.tl-appt.current{
-  border-color:var(--green-border);background:var(--g50);
-  box-shadow:0 0 0 3px var(--green-soft),var(--shadow-md);
-}
-.tl-appt.current::before{background:var(--green);border-color:var(--green);box-shadow:0 0 8px rgba(58,171,100,.5)}
-.tl-appt.current .tl-a-status{background:var(--green);color:#fff}
-
-/* Status: waiting */
-.tl-appt.waiting::before{background:var(--bg-card);border-color:var(--border-strong)}
-
-/* Status: confirmed */
-.tl-appt.confirmed::before{background:var(--blue);border-color:var(--blue)}
-
-/* Appointment content */
-.tl-a-left{display:flex;flex-direction:column;gap:2px;min-width:0}
-.tl-a-top{display:flex;align-items:center;gap:var(--sp-2);flex-wrap:wrap}
-.tl-a-time{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--ink);min-width:42px}
-.tl-a-client{font-weight:600;color:var(--ink);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tl-a-service{font-size:12px;color:var(--ink-secondary);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.tl-a-service .tag{padding:2px 7px;font-size:10px;border-radius:var(--r)}
-.tl-a-meta{font-size:11px;color:var(--ink-muted);display:flex;align-items:center;gap:var(--sp-2);margin-top:2px}
-.tl-a-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
-.tl-a-status{font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:var(--r-full);white-space:nowrap}
-.tl-a-status.s-done{background:var(--purple-soft);color:var(--purple)}
-.tl-a-status.s-current{background:var(--green);color:#fff}
-.tl-a-status.s-waiting{background:var(--border);color:var(--ink-muted)}
-.tl-a-status.s-confirmed{background:var(--blue-soft);color:var(--blue)}
-.tl-a-price{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ink)}
-.tl-a-timer{font-family:var(--mono);font-size:11px;color:var(--green);font-weight:600}
-
-/* Break slot */
-.tl-break{
-  position:relative;margin-bottom:var(--sp-2);
-  padding:var(--sp-2) var(--sp-4);
-  border-radius:var(--r);
-  background:repeating-linear-gradient(45deg,transparent,transparent 4px,var(--border) 4px,var(--border) 5px);
-  border:1px dashed var(--border);
-  display:flex;align-items:center;gap:var(--sp-2);
-  opacity:.6;
-}
-.tl-break::before{content:'';position:absolute;left:-39px;top:50%;transform:translateY(-50%);width:10px;height:10px;border-radius:50%;background:var(--bg);border:2px dashed var(--border-strong);z-index:1}
-.tl-break svg{width:14px;height:14px;stroke-width:2;fill:none;stroke:var(--ink-muted)}
-.tl-break span{font-size:12px;color:var(--ink-muted);font-weight:500}
-
-/* ═══════════════════════════════════════════
-   CLIENT CARD (popup)
-   ═══════════════════════════════════════════ */
-.client-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.3);backdrop-filter:blur(4px);
-  z-index:300;display:none;align-items:center;justify-content:center;
-  animation:fadeIn .2s var(--ease);
-}
-.client-overlay.open{display:flex}
+.sidebar{position:sticky;top:0;height:100vh;background:var(--bg-sidebar);display:flex;flex-direction:column;z-index:100;border-right:1px solid rgba(255,255,255,.06)}
+.sidebar-brand{padding:20px 22px;display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(255,255,255,.06)}.sidebar-brand-icon{width:40px;height:40px;border-radius:var(--r-md);background:linear-gradient(135deg,var(--green),#226e3f);display:flex;align-items:center;justify-content:center;flex-shrink:0}.sidebar-brand-text{color:var(--ink-inverse);font-size:17px;font-weight:600}.sidebar-brand-sub{font-size:11px;color:var(--ink-sidebar)}
+.sidebar-nav{flex:1;overflow-y:auto;padding:16px 12px}.nav-group{margin-bottom:24px}.nav-group-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);padding:0 12px;margin-bottom:8px}.nav-link{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:var(--r);color:var(--ink-sidebar);font-size:13.5px;transition:all .15s var(--ease);position:relative;margin-bottom:2px}.nav-link:hover{background:var(--bg-sidebar-hover);color:var(--ink-inverse)}.nav-link.active{background:var(--bg-sidebar-active);color:var(--ink-sidebar-active);font-weight:500}.nav-link.active::before{content:'';position:absolute;left:-12px;top:50%;transform:translateY(-50%);width:3px;height:22px;border-radius:0 3px 3px 0;background:var(--green)}.nav-link svg{width:19px;height:19px;stroke-width:1.8;fill:none;stroke:currentColor;flex-shrink:0}
+.sidebar-profile{padding:16px;border-top:1px solid rgba(255,255,255,.06)}.profile-card{display:flex;align-items:center;gap:12px;padding:12px;border-radius:var(--r-md);background:rgba(58,171,100,.08);border:1px solid rgba(58,171,100,.15)}.profile-avatar{width:38px;height:38px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:linear-gradient(135deg,var(--green),#226e3f)}.profile-avatar svg{width:28px;height:28px}.profile-name{font-size:13px;font-weight:500;color:var(--ink-inverse)}.profile-role{font-size:11px;color:var(--green);font-weight:500;margin-top:1px}
+.header{grid-column:2;height:var(--header-h);background:var(--bg-glass);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 var(--sp-8);position:sticky;top:0;z-index:50}.header-left{display:flex;align-items:center;gap:var(--sp-4)}.hamburger{display:none;width:40px;height:40px;border-radius:var(--r);border:1px solid var(--border);background:var(--bg-card);cursor:pointer;align-items:center;justify-content:center;color:var(--ink-secondary)}.header-title{font-size:16px;font-weight:500;display:flex;align-items:center;gap:var(--sp-3)}.header-title svg{width:18px;height:18px;stroke-width:1.8;fill:none;stroke:var(--green)}.header-right{display:flex;align-items:center;gap:var(--sp-3)}.hdr-btn{width:40px;height:40px;border-radius:var(--r);border:1px solid var(--border);background:var(--bg-card);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink-secondary);transition:all .15s var(--ease);position:relative}.hdr-btn:hover{background:var(--green-soft);color:var(--green)}.hdr-btn svg{width:19px;height:19px;stroke-width:1.8;fill:none;stroke:currentColor}.hdr-btn .pip{position:absolute;top:8px;right:8px;width:7px;height:7px;background:var(--rose);border-radius:50%;border:2px solid var(--bg-card)}.hdr-divider{width:1px;height:28px;background:var(--border);margin:0 var(--sp-1)}
+.main{grid-column:2;padding:var(--sp-8);overflow-y:auto;max-height:calc(100vh - var(--header-h))}
+.day-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-6);flex-wrap:wrap;gap:var(--sp-3)}.day-info h1{font-size:22px;font-weight:400;letter-spacing:-.5px}.day-info h1 b{font-weight:600;color:var(--green)}.day-sub{font-size:13px;color:var(--ink-secondary);margin-top:var(--sp-2);display:flex;align-items:center;gap:var(--sp-3)}.day-sub .dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}.day-legend{display:flex;gap:var(--sp-3);flex-wrap:wrap}.legend-item{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink-muted);font-weight:500}.legend-dot{width:10px;height:10px;border-radius:var(--r-xs)}.legend-dot.l-done{background:var(--purple-soft);border:1.5px solid var(--purple)}.legend-dot.l-current{background:var(--green);box-shadow:0 0 8px rgba(58,171,100,.4)}.legend-dot.l-waiting{background:var(--border);border:1.5px solid var(--border-strong)}.legend-dot.l-break{background:repeating-linear-gradient(45deg,var(--border),var(--border) 2px,transparent 2px,transparent 4px)}
+.tl-item{display:grid;grid-template-columns:52px 1fr auto;gap:var(--sp-3);align-items:center;padding:10px var(--sp-3);border-radius:var(--r-md);border:1px solid var(--border);margin-bottom:var(--sp-2);transition:all .15s var(--ease);background:var(--bg);cursor:pointer}.tl-item:hover{border-color:var(--border-strong);box-shadow:var(--shadow-xs);transform:translateX(2px)}.tl-item.st-pending{border-left:3px solid var(--amber)}.tl-item.st-confirmed{border-left:3px solid var(--blue)}.tl-item.st-current{border-left:3px solid var(--green);background:var(--g50);box-shadow:0 0 0 2px var(--green-soft)}.tl-item.st-done{opacity:.5;border-left:3px solid var(--purple)}.tl-item.st-rescheduled{opacity:.45;border-left:3px solid var(--gray);border-style:dashed}.tl-item.st-cancelled{opacity:.35;border-left:3px solid var(--rose);text-decoration:line-through}
+.tl-time{font-family:var(--mono);font-size:12px;font-weight:600}.tl-client{font-weight:500;font-size:13px}.tl-detail{font-size:11.5px;color:var(--ink-muted);margin-top:1px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.tl-status{font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:var(--r);white-space:nowrap}.tl-status.s-pending{background:var(--amber-soft);color:var(--amber)}.tl-status.s-confirmed{background:var(--blue-soft);color:var(--blue)}.tl-status.s-current{background:var(--green-soft);color:var(--green)}.tl-status.s-done{background:var(--purple-soft);color:var(--purple)}.tl-status.s-rescheduled{background:var(--gray-soft);color:var(--gray)}.tl-status.s-cancelled{background:var(--rose-soft);color:var(--rose)}
+.tl-acts{display:flex;gap:4px;margin-top:4px}.tl-act{width:26px;height:26px;border-radius:var(--r-xs);border:1px solid var(--border);background:transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;color:var(--ink-muted);transition:all .12s}.tl-act:hover{background:var(--green-soft);color:var(--green);border-color:var(--green-border)}.tl-act svg{width:12px;height:12px;stroke-width:2;fill:none;stroke:currentColor}.tl-timer{font-family:var(--mono);font-size:11px;color:var(--green);font-weight:600;display:flex;align-items:center;gap:4px}.tl-timer::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.tag{display:inline-flex;padding:4px 10px;border-radius:var(--r);font-size:11.5px;font-weight:600}.tag.t-purple{background:var(--purple-soft);color:var(--purple)}.tag.t-green{background:var(--green-soft);color:var(--green)}.tag.t-amber{background:var(--amber-soft);color:var(--amber)}.tag.t-rose{background:var(--rose-soft);color:var(--rose)}.tag.t-blue{background:var(--blue-soft);color:var(--blue)}
+.client-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);backdrop-filter:blur(4px);z-index:300;display:none;align-items:center;justify-content:center;animation:fadeIn .2s var(--ease)}.client-overlay.open{display:flex}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-
-.client-card{
-  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);
-  box-shadow:var(--shadow-lg);width:380px;max-width:92vw;
-  animation:slideUp .25s var(--ease);overflow:hidden;
-}
+.client-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-lg);width:400px;max-width:92vw;animation:slideUp .25s var(--ease);overflow:hidden}
 @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-
-.cc-head{
-  padding:var(--sp-5);display:flex;align-items:center;gap:var(--sp-4);
-  border-bottom:1px solid var(--border);position:relative;
-}
-.cc-head::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.cc-head.status-done::before{background:var(--purple)}
-.cc-head.status-current::before{background:var(--green)}
-.cc-head.status-waiting::before{background:var(--border)}
-.cc-head.status-confirmed::before{background:var(--blue)}
-
-.cc-avatar{
-  width:48px;height:48px;border-radius:var(--r-md);
-  display:flex;align-items:center;justify-content:center;
-  color:#fff;font-weight:700;font-size:15px;flex-shrink:0;
-}
-.cc-avatar.v1{background:linear-gradient(135deg,#7c3aed,#a78bfa)}
-.cc-avatar.v2{background:linear-gradient(135deg,#e11d48,#f472b6)}
-.cc-avatar.v3{background:linear-gradient(135deg,#d97706,#fbbf24)}
-.cc-avatar.v4{background:linear-gradient(135deg,var(--green),var(--g300))}
-.cc-avatar.v5{background:linear-gradient(135deg,#2563eb,#60a5fa)}
-
-.cc-info{flex:1;min-width:0}
-.cc-name{font-size:17px;font-weight:600;color:var(--ink);letter-spacing:-.2px}
-.cc-phone{font-size:12.5px;color:var(--ink-muted);margin-top:1px;font-family:var(--mono)}
-.cc-close{
-  position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:var(--r);
-  border:1px solid var(--border);background:var(--bg);cursor:pointer;
-  display:flex;align-items:center;justify-content:center;color:var(--ink-muted);transition:all .15s
-}
-.cc-close:hover{background:var(--rose-soft);color:var(--rose);border-color:rgba(225,29,72,.2)}
-
-.cc-body{padding:var(--sp-5)}
-
-.cc-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}
-.cc-row:last-child{border-bottom:none}
-.cc-label{font-size:12px;color:var(--ink-muted);font-weight:500}
-.cc-val{font-size:13px;color:var(--ink);font-weight:500;text-align:right}
-.cc-val.mono{font-family:var(--mono)}
-
-.cc-tags{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin-top:var(--sp-3)}
-.cc-tag{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:var(--r);font-size:11px;font-weight:600}
-.cc-tag.t-green{background:var(--green-soft);color:var(--green)}
-.cc-tag.t-amber{background:var(--amber-soft);color:var(--amber)}
-.cc-tag.t-rose{background:var(--rose-soft);color:var(--rose)}
-.cc-tag.t-purple{background:var(--purple-soft);color:var(--purple)}
-.cc-tag.t-blue{background:var(--blue-soft);color:var(--blue)}
-
-.cc-actions{display:flex;gap:var(--sp-2);padding:0 var(--sp-5) var(--sp-5)}
-.cc-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 14px;border-radius:var(--r-md);font-size:12.5px;font-weight:500;border:none;cursor:pointer;transition:all .15s var(--ease)}
-.cc-btn svg{width:14px;height:14px;stroke-width:2;fill:none;stroke:currentColor}
-.cc-btn.primary{background:var(--green);color:#fff}.cc-btn.primary:hover{background:var(--g600)}
-.cc-btn.ghost{background:var(--bg);color:var(--ink-secondary);border:1.5px solid var(--border)}.cc-btn.ghost:hover{border-color:var(--green-border);background:var(--green-soft);color:var(--green)}
-
-/* ═══════════════════════════════════════════
-   RESPONSIVE
-   ═══════════════════════════════════════════ */
-@media(max-width:1080px){
-  .sidebar{position:fixed;left:0;top:0;transform:translateX(-100%);z-index:200;box-shadow:var(--shadow-lg)}
-  .sidebar.open{transform:translateX(0)}
-  .hamburger{display:flex}
-  .main{grid-column:1/-1;padding:var(--sp-5) var(--sp-4)}
-  .header{grid-column:1/-1}
-}
-@media(max-width:768px){
-  .day-info h1{font-size:18px}
-  .timeline{padding-left:56px}
-  .tl-hour::before{width:42px;font-size:11px;left:-56px}
-  .tl-hour::after{left:-25px;width:8px;height:8px}
-  .timeline::before{left:27px}
-  .tl-appt::before{left:-25px;width:8px;height:8px}
-  .tl-break::before{left:-25px;width:8px;height:8px}
-  .day-legend{display:none}
-}
-
-/* ═══════════════════════════════════════════
-   ANIMATIONS
-   ═══════════════════════════════════════════ */
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.anim{animation:fadeUp .4s var(--ease) both}
-.d1{animation-delay:.04s}.d2{animation-delay:.08s}.d3{animation-delay:.12s}.d4{animation-delay:.16s}
-</style>
+.cc-head{padding:var(--sp-5);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:var(--sp-4);position:relative}.cc-head::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),#8ad9ac)}.cc-head.status-done::before{background:var(--purple)}.cc-head.status-current::before{background:var(--green)}.cc-head.status-confirmed::before{background:var(--blue)}
+.cc-avatar{width:48px;height:48px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;flex-shrink:0;background:linear-gradient(135deg,var(--green),#226e3f)}
+.cc-info{flex:1;min-width:0}.cc-name{font-size:17px;font-weight:600;letter-spacing:-.2px}.cc-phone{font-size:12.5px;color:var(--ink-muted);margin-top:1px;font-family:var(--mono)}
+.cc-close{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:var(--r);border:1px solid var(--border);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink-muted);transition:all .15s}.cc-close:hover{background:var(--rose-soft);color:var(--rose)}
+.cc-body{padding:var(--sp-5)}.cc-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}.cc-row:last-child{border-bottom:none}.cc-label{font-size:12px;color:var(--ink-muted);font-weight:500}.cc-val{font-size:13px;font-weight:500;text-align:right}.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+@media(max-width:1080px){.sidebar{position:fixed;left:0;top:0;transform:translateX(-100%);z-index:200}.main{grid-column:1/-1;padding:var(--sp-5) var(--sp-4)}.header{grid-column:1/-1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}.anim{animation:fadeUp .4s var(--ease) both}.d1{animation-delay:.04s}
+  </style>
 </head>
 <body>
-
 <div class="shell">
-
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-brand">
-    <div class="sidebar-brand-icon">
-      <svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M16 6v4"/><path d="M12 10l4-4 4 4"/><path d="M10 18c0-4 2.5-7 6-10 3.5 3 6 6 6 10a6 6 0 0 1-12 0z"/><path d="M16 22v4"/><circle cx="13" cy="16" r="1" fill="#fff" stroke="none"/><circle cx="19" cy="16" r="1" fill="#fff" stroke="none"/><path d="M14 19c.5.5 1.5.8 2 .8s1.5-.3 2-.8" stroke-width="1.5"/></svg>
-    </div>
-    <div><div class="sidebar-brand-text">GA Studio</div><div class="sidebar-brand-sub">Premium Beauty</div></div>
-  </div>
+<aside class="sidebar">
+  <a href="salon-admin.html" style="text-decoration:none"><div class="sidebar-brand"><div class="sidebar-brand-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M16 6v4"/><path d="M12 10l4-4 4 4"/><path d="M10 18c0-4 2.5-7 6-10 3.5 3 6 6 6 10a6 6 0 0 1-12 0z"/><circle cx="13" cy="16" r="1" fill="#fff" stroke="none"/><circle cx="19" cy="16" r="1" fill="#fff" stroke="none"/></svg></div><div><div class="sidebar-brand-text">GA Studio</div><div class="sidebar-brand-sub">Premium Beauty</div></div></div></a>
   <nav class="sidebar-nav">
-    <div class="nav-group">
-      <div class="nav-group-label">Основное</div>
-      <a href="salon-admin.html" class="nav-link"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Обзор</a>
-      <a href="schedule.html" class="nav-link active"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Расписание <span class="badge">8</span></a>
-      <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Клиенты</a>
-      <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Услуги</a>
+    <div class="nav-group"><div class="nav-group-label">Основное</div>
+      <a href="salon-admin.html" class="nav-link"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Главная</a>
+      <a href="schedule.html" class="nav-link active"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Расписание</a>
+      <a href="clients.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Клиенты</a>
+      <a href="services.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Услуги</a>
     </div>
-    <div class="nav-group">
-      <div class="nav-group-label">Бизнес</div>
-      <!-- Финансы скрыты до включения в настройках -->
+    <div class="nav-group"><div class="nav-group-label">Бизнес</div>
       <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Мастера</a>
       <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Склад</a>
     </div>
-    <div class="nav-group">
-      <div class="nav-group-label">Система</div>
+    <div class="nav-group"><div class="nav-group-label">Система</div>
       <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Настройки</a>
     </div>
   </nav>
-  <div class="sidebar-profile">
-    <div class="profile-card">
-      <div class="profile-avatar"><svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M16 6v4"/><path d="M12 10l4-4 4 4"/><path d="M10 18c0-4 2.5-7 6-10 3.5 3 6 6 6 10a6 6 0 0 1-12 0z"/><circle cx="13" cy="16" r="1" fill="#fff" stroke="none"/><circle cx="19" cy="16" r="1" fill="#fff" stroke="none"/></svg></div>
-      <div><div class="profile-name">Алина К.</div><div class="profile-role">Мастер</div></div>
-    </div>
-  </div>
+  <div class="sidebar-profile"><div class="profile-card"><div class="profile-avatar"><svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M16 6v4"/><path d="M12 10l4-4 4 4"/><path d="M10 18c0-4 2.5-7 6-10 3.5 3 6 6 6 10a6 6 0 0 1-12 0z"/><circle cx="13" cy="16" r="1" fill="#fff" stroke="none"/><circle cx="19" cy="16" r="1" fill="#fff" stroke="none"/></svg></div><div><div class="profile-name">Алина К.</div><div class="profile-role">Мастер</div></div></div></div>
 </aside>
-
-<!-- HEADER -->
 <header class="header">
-  <div class="header-left">
-    <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  <div class="header-left"><button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     <div class="header-title"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Расписание дня</div>
   </div>
-  <div class="header-right">
-    <button class="hdr-btn" title="Уведомления"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="pip"></span></button>
-    <div class="hdr-divider"></div>
-    <button class="hdr-btn" title="Профиль"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
-  </div>
+  <div class="header-right"><button class="hdr-btn" title="Уведомления"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="pip"></span></button><div class="hdr-divider"></div><button class="hdr-btn" title="Профиль"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button></div>
 </header>
-
-<!-- MAIN -->
 <main class="main">
-
-  <!-- Day header -->
-  <div class="day-top anim">
-    <div class="day-info">
-      <h1>Понедельник, <b>28 июня</b></h1>
-      <div class="day-sub"><span class="dot"></span> 8 записей · Алина · Кабинет 3</div>
-    </div>
-    <div class="day-legend">
-      <span class="legend-item"><span class="legend-dot l-done"></span>Выполнено</span>
-      <span class="legend-item"><span class="legend-dot l-current"></span>Сейчас</span>
-      <span class="legend-item"><span class="legend-dot l-waiting"></span>Ожидание</span>
-      <span class="legend-item"><span class="legend-dot l-break"></span>Перерыв</span>
-    </div>
-  </div>
-
-  <!-- Timeline -->
+  <div class="day-top anim"><div class="day-info"><h1>Понедельник, <b>28 июня</b></h1><div class="day-sub"><span class="dot"></span> 8 записей · Алина · Кабинет 3</div></div><div class="day-legend"><span class="legend-item"><span class="legend-dot l-done"></span>Выполнено</span><span class="legend-item"><span class="legend-dot l-current"></span>Сейчас</span><span class="legend-item"><span class="legend-dot l-waiting"></span>Ожидание</span></div></div>
   <div class="timeline anim d1" id="timeline"></div>
-
 </main>
 </div>
-
-<!-- Client card overlay -->
-<div class="client-overlay" id="clientOverlay" onclick="if(event.target===this)closeCard()">
-  <div class="client-card" id="clientCard"></div>
-</div>
-
+<div class="client-overlay" id="clientOverlay" onclick="if(event.target===this)closeCard()"><div class="client-card" id="clientCard"></div></div>
+<script src="data/clients.js"></script>
+<script src="data/services.js"></script>
+<script src="data/appointments.js"></script>
+<script src="data/settings.js"></script>
+<script src="data/dataProvider.js"></script>
 <script>
-// Mobile sidebar
-document.addEventListener('click',e=>{const s=document.getElementById('sidebar'),b=document.querySelector('.hamburger');if(s.classList.contains('open')&&!s.contains(e.target)&&!b.contains(e.target))s.classList.remove('open')});
-
-// ═══════════════════════════════════════════
-// DATA
-// ═══════════════════════════════════════════
+document.addEventListener('click',e=>{const s=document.getElementById('sidebar'),b=document.querySelector('.hamburger');if(s&&s.classList.contains('open')&&!s.contains(e.target)&&!b.contains(e.target))s.classList.remove('open')});
 const NOW=new Date();
-const DAY=NOW.getDate(),MONTH=NOW.getMonth(),YEAR=NOW.getFullYear();
-function mkTime(h,m){return new Date(YEAR,MONTH,DAY,h,m)}
+function mkTime(h,m){return new Date(NOW.getFullYear(),NOW.getMonth(),NOW.getDate(),h,m)}
 function fmtHM(d){return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0')}
-function fmtDur(min){return min>=60?Math.floor(min/60)+'ч '+min%60+'мин':min+' мин'}
-
-const CLIENTS={
-  'Елена Морозова':   {phone:'+7 916 123-45-67',visits:12,lastVisit:'14.06.2026',avatar:'v1',initials:'ЕМ',allergies:'Нет',notes:'Предпочитает тёплые тона',tags:[{t:'t-green',l:'Постоянный'}]},
-  'Анна Васильева':   {phone:'+7 903 456-78-90',visits:8, lastVisit:'21.06.2026',avatar:'v2',initials:'АВ',allergies:'Лактоза (кремы)',notes:'Стрижка «каре»',tags:[{t:'t-amber',l:'Аллергия'}]},
-  'Ольга Козлова':    {phone:'+7 925 789-01-23',visits:5, lastVisit:'07.06.2026',avatar:'v3',initials:'ОК',allergies:'Нет',notes:'🌿 Эко-продукты only',tags:[{t:'t-green',l:'Эко'}]},
-  'Наталья Смирнова': {phone:'+7 910 234-56-78',visits:15,lastVisit:'25.06.2026',avatar:'v5',initials:'НС',allergies:'Аммиак',notes:'Тонирование без аммиака',tags:[{t:'t-rose',l:'Аллергия'},{t:'t-green',l:'VIP'}]},
-  'Алина Петрова':    {phone:'+7 926 345-67-89',visits:3, lastVisit:'14.06.2026',avatar:'v1',initials:'ДП',allergies:'Нет',notes:'Новичок, рекомендовала Анна В.',tags:[{t:'t-blue',l:'Новичок'}]},
-  'Мария Иванова':    {phone:'+7 905 678-90-12',visits:7, lastVisit:'20.06.2026',avatar:'v4',initials:'МИ',allergies:'Нет',notes:'Короткая стрижка, не выше подбородка',tags:[{t:'t-green',l:'Постоянный'}]},
-  'Екатерина Новикова':{phone:'+7 915 890-12-34',visits:2, lastVisit:'15.06.2026',avatar:'v2',initials:'ЕН',allergies:'Нет',notes:'Длинные волосы, боится перемен',tags:[{t:'t-amber',l:'Осторожная'}]},
-  'Ирина Соколова':   {phone:'+7 920 111-22-33',visits:20,lastVisit:'27.06.2026',avatar:'v3',initials:'ИС',allergies:'Нет',notes:'VIP-клиент, всегда чай',tags:[{t:'t-green',l:'VIP'}]},
-};
-
-const appts=[
-  {time:mkTime(9,30),  dur:60, client:'Елена Морозова',    service:'Стрижка + Тонирование',   price:3800, status:'done'},
-  {time:mkTime(10,30), dur:60, client:'Анна Васильева',     service:'Стрижка + Укладка',    price:4200, status:'done'},
-  {time:mkTime(11,30), dur:90, client:'Ольга Козлова',      service:'🌿 Эко-спа уход',      price:5800, status:'done'},
-  // Перерыв 13:00–13:00 (нет — сразу Наталья)
-  {time:mkTime(13,0),  dur:120,client:'Наталья Смирнова',   service:'Окрашивание',           price:6500, status:'current'},
-  {time:mkTime(15,0),  dur:60, client:'Алина Петрова',      service:'Брови + Ламинирование', price:2900, status:'waiting'},
-  {time:mkTime(16,0),  dur:60, client:'Мария Иванова',      service:'Стрижка',               price:2800, status:'waiting'},
-  {time:mkTime(17,0),  dur:90, client:'Екатерина Новикова', service:'Кератин',                price:7200, status:'waiting'},
-  {time:mkTime(18,30), dur:60, client:'Ирина Соколова',     service:'Тонирование',               price:2200, status:'waiting'},
-];
-
-const breaks=[
-  {from:mkTime(12,30),to:mkTime(13,0),label:'Обед'},
-  {from:mkTime(14,30),to:mkTime(15,0),label:'Перерыв'},
-];
-
-// ═══════════════════════════════════════════
-// RENDER TIMELINE
-// ═══════════════════════════════════════════
+function fmtDur(ms){if(ms<0)ms=0;const h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000),s=Math.floor((ms%60000)/1000);return(h>0?h+'ч ':'')+m+'мин '+s+'сек'}
+const STATUS_MAP={pending:{label:'Ожидает',cls:'s-pending'},confirmed:{label:'Подтверждена',cls:'s-confirmed'},current:{label:'В работе',cls:'s-current'},done:{label:'Завершена',cls:'done'},rescheduled:{label:'Перенесена',cls:'s-rescheduled'},cancelled:{label:'Отменена',cls:'s-cancelled'}};
+let appts=DataProvider.getAppointments();
+if(!appts.length&&window.DATA_appointments_generator){appts=DATA_appointments_generator(mkTime);DataProvider.setAppointments(appts);}
+function getClientName(a){return DataProvider.getClientName(a)}
+function getServiceName(a){return DataProvider.getServiceName(a)}
+function getServicePrice(a){return DataProvider.getServicePrice(a)}
 function renderTimeline(){
-  const el=document.getElementById('timeline');
-  const START_H=9, END_H=19;
-  let html='';
-
-  for(let h=START_H;h<=END_H;h++){
-    // Hour marker
-    html+='<div class="tl-hour" data-time="'+h+':00"></div>';
-
-    // Appointments at this hour
-    appts.filter(a=>a.time.getHours()===h).forEach((a,idx)=>{
-      const end=new Date(a.time.getTime()+a.dur*60000);
-      const cls=a.status;
-      const scls=a.status==='done'?'s-done':a.status==='current'?'s-current':a.status==='confirmed'?'s-confirmed':'s-waiting';
-      const slbl=a.status==='done'?'Готово':a.status==='current'?'В работе':a.status==='confirmed'?'Подтверждена':'Ожидание';
-
-      // Timer for current
-      let timerHtml='';
-      if(a.status==='current'){
-        const remaining=Math.max(0,end-NOW);
-        const m=Math.floor(remaining/60000);
-        timerHtml='<div class="tl-a-timer" data-end="'+end.getTime()+'">'+fmtDur(m)+' осталось</div>';
-      }
-
-      html+='<div class="tl-appt '+cls+'" onclick="openCard('+idx+')">';
-      html+='  <div class="tl-a-left">';
-      html+='    <div class="tl-a-top">';
-      html+='      <span class="tl-a-time">'+fmtHM(a.time)+'</span>';
-      html+='      <span class="tl-a-client">'+a.client+'</span>';
-      html+='    </div>';
-      html+='    <div class="tl-a-service">';
-      html+='      <span class="tag t-'+(a.service.includes('🌿')?'green':'purple')+'">'+a.service+'</span>';
-      html+='      <span>'+fmtHM(a.time)+'–'+fmtHM(end)+'</span>';
-      html+='    </div>';
-      html+='    <div class="tl-a-meta">'+fmtDur(a.dur)+' · Каб. 3</div>';
-      html+='  </div>';
-      html+='  <div class="tl-a-right">';
-      html+='    <span class="tl-a-status '+scls+'">'+slbl+'</span>';
-      html+='    <span class="tl-a-price">₽'+a.price.toLocaleString()+'</span>';
-      html+=timerHtml;
-      html+='  </div>';
-      html+='</div>';
-    });
-
-    // Breaks at this hour
-    breaks.filter(b=>b.from.getHours()===h).forEach(b=>{
-      const durMin=(b.to-b.from)/60000;
-      html+='<div class="tl-break">';
-      html+='  <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>';
-      html+='  <span>'+b.label+' · '+fmtHM(b.from)+'–'+fmtHM(b.to)+' · '+fmtDur(durMin)+'</span>';
-      html+='</div>';
-    });
-  }
-
-  el.innerHTML=html;
+  document.getElementById('timeline').innerHTML=appts.map((a,idx)=>{
+    const s=STATUS_MAP[a.status]||{label:a.status,cls:'s-pending'};const end=new Date(a.time.getTime()+a.duration*60000);
+    let timerHtml='';if(a.status==='current'){const rem=Math.max(0,end-NOW);timerHtml='<div class="tl-timer" data-end="'+end.getTime()+'" id="tlTimer">'+fmtDur(rem)+'</div>';}
+    let acts='';if(a.status==='pending')acts='<div class="tl-acts"><button class="tl-act" onclick="event.stopPropagation();confirmAppt('+a.id+')"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></button></div>';
+    else if(a.status==='confirmed')acts='<div class="tl-acts"><button class="tl-act" onclick="event.stopPropagation();startAppt('+a.id+')"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></button></div>';
+    return '<div class="tl-item st-'+a.status+'" onclick="openCard('+idx+')"><div class="tl-time">'+fmtHM(a.time)+'</div><div><div class="tl-client">'+getClientName(a)+'</div><div class="tl-detail"><span class="tag t-'+(getServiceName(a).includes('\u0416')||getServiceName(a).includes('\u2728')?'green':'purple')+'" style="padding:2px 7px;font-size:10px">'+getServiceName(a)+'</span> · '+fmtHM(a.time)+'–'+fmtHM(end)+'</div>'+acts+'</div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="tl-status '+s.cls+'">'+s.label+'</span><span class="tl-time" style="font-size:11px">\u20b1'+getServicePrice(a).toLocaleString()+'</span>'+timerHtml+'</div></div>';
+  }).join('');
 }
-
-// ═══════════════════════════════════════════
-// CLIENT CARD
-// ═══════════════════════════════════════════
+function confirmAppt(id){const a=appts.find(x=>x.id===id);if(!a||a.status!=='pending')return;a.status='confirmed';renderTimeline();}
+function startAppt(id){const a=appts.find(x=>x.id===id);if(!a||a.status!=='confirmed')return;a.status='current';a.startedAt=new Date();renderTimeline();}
 function openCard(idx){
-  const a=appts[idx];
-  const c=CLIENTS[a.client];
-  const end=new Date(a.time.getTime()+a.dur*60000);
-  const card=document.getElementById('clientCard');
-  const overlay=document.getElementById('clientOverlay');
-
+  const a=appts[idx];const c=window.DataProvider.getClientById?DataProvider.getClientById(a.clientId):null;
+  const end=new Date(a.time.getTime()+a.duration*60000);
   const statusCls=a.status==='done'?'status-done':a.status==='current'?'status-current':a.status==='confirmed'?'status-confirmed':'status-waiting';
-
-  let tagsHtml='';
-  if(c) c.tags.forEach(t=>{tagsHtml+='<span class="cc-tag '+t.t+'">'+t.l+'</span>'});
-
-  let actionsHtml='';
-  if(a.status==='current'){
-    actionsHtml='<div class="cc-actions"><button class="cc-btn primary" onclick="closeCard()"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Завершить</button><button class="cc-btn ghost" onclick="closeCard()"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Заметка</button></div>';
-  } else if(a.status==='waiting'){
-    actionsHtml='<div class="cc-actions"><button class="cc-btn primary" onclick="closeCard()"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Начать</button><button class="cc-btn ghost" onclick="closeCard()"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Перенести</button></div>';
-  }
-
-  card.innerHTML=
-    '<div class="cc-head '+statusCls+'">'+
-      '<div class="cc-avatar '+(c?c.avatar:'v4')+'">'+(c?c.initials:'??')+'</div>'+
-      '<div class="cc-info"><div class="cc-name">'+a.client+'</div><div class="cc-phone">'+(c?c.phone:'—')+'</div></div>'+
-      '<button class="cc-close" onclick="closeCard()"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>'+
-    '</div>'+
-    '<div class="cc-body">'+
-      '<div class="cc-row"><span class="cc-label">Услуга</span><span class="cc-val">'+a.service+'</span></div>'+
-      '<div class="cc-row"><span class="cc-label">Время</span><span class="cc-val mono">'+fmtHM(a.time)+'–'+fmtHM(end)+'</span></div>'+
-      '<div class="cc-row"><span class="cc-label">Длительность</span><span class="cc-val">'+fmtDur(a.dur)+'</span></div>'+
-      '<div class="cc-row"><span class="cc-label">Цена</span><span class="cc-val mono">₽'+a.price.toLocaleString()+'</span></div>'+
-      (c?'<div class="cc-row"><span class="cc-label">Визитов</span><span class="cc-val">'+c.visits+'</span></div>':'')+
-      (c?'<div class="cc-row"><span class="cc-label">Последний визит</span><span class="cc-val mono">'+c.lastVisit+'</span></div>':'')+
-      (c?'<div class="cc-row"><span class="cc-label">Аллергии</span><span class="cc-val" style="color:'+(c.allergies!=='Нет'?'var(--rose)':'var(--ink-secondary)')+'">'+c.allergies+'</span></div>':'')+
-      (c?'<div class="cc-row"><span class="cc-label">Заметки</span><span class="cc-val" style="max-width:200px;text-align:right">'+c.notes+'</span></div>':'')+
-      (tagsHtml?'<div class="cc-tags">'+tagsHtml+'</div>':'')+
-    '</div>'+
-    actionsHtml;
-
-  overlay.classList.add('open');
+  let tagsHtml='';if(c&&c.tags)c.tags.forEach(t=>{tagsHtml+='<span class="tag t-'+(t==='vip'?'purple':t==='\u0430\u043b\u043b\u0435\u0440\u0433\u0438\u044f'?'rose':'green')+'">'+t+'</span> '});
+  document.getElementById('clientCard').innerHTML='<div class="cc-head '+statusCls+'"><div class="cc-avatar">'+(c?c.name.split(' ').map(n=>n[0]).join(''):'??')+'</div><div class="cc-info"><div class="cc-name">'+getClientName(a)+'</div><div class="cc-phone">'+(c?c.phone:'\u2014')+'</div></div><button class="cc-close" onclick="closeCard()"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div class="cc-body"><div class="cc-row"><span class="cc-label">\u0423\u0441\u043b\u0443\u0433\u0430</span><span class="cc-val">'+getServiceName(a)+'</span></div><div class="cc-row"><span class="cc-label">\u0412\u0440\u0435\u043c\u044f</span><span class="cc-val mono">'+fmtHM(a.time)+'\u2013'+fmtHM(end)+'</span></div><div class="cc-row"><span class="cc-label">\u0426\u0435\u043d\u0430</span><span class="cc-val mono">\u20b1'+getServicePrice(a).toLocaleString()+'</span></div>'+(c?'<div class="cc-row"><span class="cc-label">\u0410\u043b\u043b\u0435\u0440\u0433\u0438\u0438</span><span class="cc-val" style="color:var(--rose)">'+((c.allergies||[]).length?c.allergies.join(', '):'\u041d\u0435\u0442')+'</span></div>':'')+(tagsHtml?'<div style="margin-top:8px">'+tagsHtml+'</div>':'')+'</div>';
+  document.getElementById('clientOverlay').classList.add('open');
 }
-
 function closeCard(){document.getElementById('clientOverlay').classList.remove('open')}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCard()});
-
-// ═══════════════════════════════════════════
-// TIMER TICK
-// ═══════════════════════════════════════════
-function tick(){
-  document.querySelectorAll('.tl-a-timer[data-end]').forEach(el=>{
-    const end=parseInt(el.dataset.end);
-    const remaining=Math.max(0,end-Date.now());
-    const m=Math.floor(remaining/60000);
-    const s=Math.floor((remaining%60000)/1000);
-    el.textContent=(m>0?m+' мин ':'')+s+' сек осталось';
-  });
-}
-
-// ═══════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════
-renderTimeline();
-setInterval(tick,1000);
+function tick(){const tl=document.getElementById('tlTimer');if(tl){const end=parseInt(tl.dataset.end);tl.textContent=fmtDur(Math.max(0,end-Date.now()));}}
+renderTimeline();setInterval(tick,1000);
 </script>
 </body>
 </html>
