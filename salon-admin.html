@@ -86,7 +86,7 @@
   <div class="header-left"><button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     <div class="view-toggle"><button class="view-btn active" id="btnToday" onclick="switchView('today')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Сегодня</button><button class="view-btn" id="btnCal" onclick="switchView('calendar')"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Календарь</button></div>
   </div>
-  <div class="header-right"><button class="hdr-btn" title="Уведомления"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="pip"></span></button><div class="hdr-divider"></div><button class="hdr-btn" title="Профиль"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button></div>
+  <div class="header-right"><button class="hdr-btn" title="Уведомления"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="pip"></span></button><div class="hdr-divider"></div></div>
 </header>
 
 <main class="main">
@@ -111,8 +111,6 @@
   </div>
 </main>
 </div>
-
-<button class="fab" title="Быстрая запись"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
 
 <!-- Snackbar -->
 <div class="snackbar hidden" id="snackbar"><span class="snackbar-msg" id="snackbarMsg"></span><button class="snackbar-undo" id="snackbarUndo" onclick="undoAction()">Отменить</button><span class="snackbar-timer" id="snackbarTimer">10с</span></div>
